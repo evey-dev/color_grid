@@ -1,3 +1,5 @@
+import 'package:color_grid/tile.dart';
+
 import 'drag_and_drop_gridview/devdrag.dart';
 import 'package:flutter/material.dart';
 
@@ -45,44 +47,18 @@ class _MyAppState extends State<MyApp> {
           child: DragAndDropGridView(
             controller: _scrollController,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 3 / 4.5,
+              crossAxisCount: 5,
             ),
             padding: const EdgeInsets.all(20),
-            itemBuilder: (context, index) => Card(
-              elevation: 2,
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  if (variableSet == 0) {
-                    height = constraints.maxHeight;
-                    width = constraints.maxWidth;
-                    variableSet++;
-                  }
-                  return GridTile(
-                    child: Image.network(
-                      _imageUris[index],
-                      fit: BoxFit.cover,
-                      height: height,
-                      width: width,
-                    ),
-                  );
-                },
-              ),
-            ),
-            itemCount: _imageUris.length,
+            itemBuilder: (context, index) => Tile(size: 100),
+            itemCount: 25,
             onWillAccept: (oldIndex, newIndex) {
-              // Implement you own logic
-
-              // Example reject the reorder if the moving item's value is something specific
-              if (_imageUris[newIndex] == "something") {
-                return false;
-              }
-              return true; // If you want to accept the child return true or else return false
+              return true;
             },
             onReorder: (oldIndex, newIndex) {
-              final temp = _imageUris[oldIndex];
-              _imageUris[oldIndex] = _imageUris[newIndex];
-              _imageUris[newIndex] = temp;
+              // final temp = _imageUris[oldIndex];
+              // _imageUris[oldIndex] = _imageUris[newIndex];
+              // _imageUris[newIndex] = temp;
 
               setState(() {});
             },
