@@ -1,52 +1,73 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'tools/ValueListenableBuilder2.dart';
 class Tile extends StatefulWidget {
-  Color color = Colors.white;
-  final _TileState _ts = _TileState();
+  ValueNotifier<Color> color = ValueNotifier(const Color(0xFFDCDCDC));
+  ValueNotifier<bool> selected = ValueNotifier(false);
   final double size;
+  bool dot;
+  int index;
+  final void Function(int) callback;
 
-  Tile({required this.size, Key? key}) : super(key: key);
+  Tile({required this.index, required this.size, required this.dot, required this.callback, Key? key}) : super(key: key);
 
   @override
-  _TileState createState() => _ts;
-
-  void autoFill() {
-    _ts.autoFill(color);
-  }
+  _TileState createState() => _TileState();
 }
 
 class _TileState extends State<Tile> {
-  void autoFill(Color color) {
-    setState(() {
-      widget.color = color;
-    });
-  }
 
   void userInput(Color color) {
-    setState(() {
-      widget.color = color;
-    });
+    widget.color.value = color;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(2),
+    return GestureDetector(
+      onTap: () {
+        widget.dot = true;
+        // userInput(const Color(0xFFFF6464));
+        widget.callback(widget.index);
+        setState(() {
+        });
+      },
       child: Container(
-        height: widget.size,
-        width: widget.size,
         padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(widget.size / 10)),
-          color: widget.color,
-          border: Border.all(color: Colors.black)),
-        child: const Align(
-          alignment: Alignment.bottomRight,
-          child: Icon(
-            Icons.circle,
-            color: Colors.black,
-          ),
+        child: ValueListenableBuilder2<Color,bool>(
+          first: widget.color,
+          second: widget.selected,
+          builder: (BuildContext context, Color val1, bool val2, Widget? child) {
+            return Neumorphic(
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                depth: 6,
+                lightSource: LightSource.topLeft,
+                intensity: .5,
+                color: val1,
+                border: NeumorphicBorder(width:  val2 ? 2 : .5, color: Colors.black12),
+              ),
+              padding: const EdgeInsets.all(2),
+              child: Container(
+                height: widget.size,
+                width: widget.size,
+                padding: const EdgeInsets.all(5),
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.all(Radius.circular(widget.size / 10)),
+                //   color: widget.color,
+                //   border: Border.all(color: Colors.black12),
+                // ),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Icon(
+                    Icons.circle,
+                    size: 15,
+                    color: widget.dot ? val2 ? Colors.black54 : Colors.black12 : Colors.transparent,
+                  ),
+                ),
+              ),
+            );
+          }
         ),
       ),
     );
