@@ -4,11 +4,11 @@ class Tile extends StatefulWidget {
   ValueNotifier<Color> color = ValueNotifier(const Color(0xFFDCDCDC));
   ValueNotifier<bool> selected = ValueNotifier(false);
   final double size;
-  bool dot;
+  bool dot = false;
   int index;
   final void Function(int) callback;
 
-  Tile({required this.index, required this.size, required this.dot, required this.callback, Key? key}) : super(key: key);
+  Tile({required this.index, required this.size, required this.callback, Key? key}) : super(key: key);
 
   @override
   _TileState createState() => _TileState();
@@ -16,17 +16,11 @@ class Tile extends StatefulWidget {
 
 class _TileState extends State<Tile> {
 
-  void userInput(Color color) {
-    widget.color.value = color;
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         widget.dot = true;
-        // userInput(const Color(0xFFFF6464));
         widget.callback(widget.index);
         setState(() {
         });

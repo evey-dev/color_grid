@@ -4,7 +4,6 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'drag_and_drop_gridview/drag.dart';
 import 'drag_and_drop_gridview/devdrag.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,14 +17,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ScrollController? _scrollController;
   final int gridHeight = 5;
   final int gridWidth = 5;
   late List<Tile> tiles;
   late List<DragItem> tilesWrapper;
   late List<ValueNotifier<bool>> dots;
 
-  late List<ValueNotifier<Color>> colorGrid;
+  // late List<ValueNotifier<Color>> colorGrid;
   ValueNotifier<int> selected = ValueNotifier<int>(-1);
 
 
@@ -43,16 +41,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    colorGrid = [
-      for (var i = 0; i < gridHeight*gridWidth; i++)
-        ValueNotifier(const Color(0xFFDCDCDC))
-    ];
+    // colorGrid = [
+    //   for (var i = 0; i < gridHeight*gridWidth; i++)
+    //     ValueNotifier(const Color(0xFFDCDCDC))
+    // ];
     tiles = [
       for (var i = 0; i < gridHeight*gridWidth; i++)
         Tile(
           index: i,
           size: 100,
-          dot: false,
           callback: setSelected,
         )
     ];
@@ -77,7 +74,6 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             DragAndDropGridView(
-              controller: _scrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: gridWidth,
               ),
@@ -129,11 +125,11 @@ class _MyAppState extends State<MyApp> {
     if (selected.value > -1) {
       return ValueListenableBuilder<int>(
         valueListenable: selected,
-        builder: (BuildContext context, int val2, Widget? child) {
+        builder: (BuildContext context, int val, Widget? child) {
           return SlidePicker(
-            pickerColor: tiles[val2].color.value,
+            pickerColor: tiles[val].color.value,
             onColorChanged: (color) {
-              tiles[val2].color.value = color;
+              tiles[val].color.value = color;
             },
             enableAlpha: false,
             colorModel: ColorModel.hsl,
