@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
     ];
     tilesWrapper = [
       for (var i = 0; i < gridHeight*gridWidth; i++)
-         DragItem(
+        DragItem(
           isDraggable: dots[i].value,
           child: tiles[i],
         )
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
                 valueListenable: selected,
                 builder: (BuildContext context, int val, Widget? child) {
                   return SizedBox(
-                    height: 205,
+                    height: 255,
                     width: 280,
                     child: colorTile(val),
                   );
@@ -131,14 +131,37 @@ class _MyAppState extends State<MyApp> {
 
   Widget colorTile(int val) {
     if (val > -1) {
-          return SlidePicker(
+      return Column(
+        children: [
+          SlidePicker(
             pickerColor: tiles[val].color.value == Colors.transparent ? const Color(0xFFD3D8DB) : tiles[val].color.value,
             onColorChanged: (color) {
               tiles[val].color.value = color;
             },
             enableAlpha: false,
             colorModel: ColorModel.hsv,
-          );
+          ),
+          GestureDetector(
+            onTap: (){
+              tiles[selected.value].color.value = Colors.transparent;
+              tiles[selected.value].selected.value = false;
+              selected.value = -1;
+            },
+            child: NeumorphicIcon(
+              Icons.delete,
+              size: 30,
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.concave,
+                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                depth: 2,
+                lightSource: LightSource.topLeft,
+                intensity: 1,
+                color: Colors.black54,
+              ),
+            ),
+          ),
+        ],
+      );
     } else {
       return Center(
         child: NeumorphicText(
@@ -157,5 +180,4 @@ class _MyAppState extends State<MyApp> {
       );
     }
   }
-
 }

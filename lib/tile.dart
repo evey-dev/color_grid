@@ -32,6 +32,7 @@ class _TileState extends State<Tile> {
           second: widget.selected,
           builder: (BuildContext context, Color val1, bool val2, Widget? child) {
             if (val1 != Colors.transparent) widget.dot = true;
+            else widget.dot = false;
             return Neumorphic(
               style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,
