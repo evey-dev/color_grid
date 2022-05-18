@@ -109,10 +109,15 @@ class _MyAppState extends State<MyApp> {
                 color: const Color(0xFFDCDCDC),
                 border: const NeumorphicBorder(color: Colors.black12),
               ),
-              child: SizedBox(
-                height: 205,
-                width: 280,
-                child: colorTile(),
+              child: ValueListenableBuilder<int>(
+                valueListenable: selected,
+                builder: (BuildContext context, int val, Widget? child) {
+                  return SizedBox(
+                    height: 205,
+                    width: 280,
+                    child: colorTile(val),
+                  );
+                }
               ),
             ),
           ],
@@ -121,11 +126,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Widget colorTile() {
-    if (selected.value > -1) {
-      return ValueListenableBuilder<int>(
-        valueListenable: selected,
-        builder: (BuildContext context, int val, Widget? child) {
+  Widget colorTile(int val) {
+    if (val > -1) {
           return SlidePicker(
             pickerColor: tiles[val].color.value,
             onColorChanged: (color) {
@@ -134,8 +136,6 @@ class _MyAppState extends State<MyApp> {
             enableAlpha: false,
             colorModel: ColorModel.hsl,
           );
-        },
-      );
     } else {
       return Center(
         child: NeumorphicText(
