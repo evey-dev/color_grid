@@ -1,7 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'tools/ValueListenableBuilder2.dart';
 class Tile extends StatefulWidget {
-  ValueNotifier<Color> color = ValueNotifier(const Color(0xFFDCDCDC));
+  ValueNotifier<Color> color = ValueNotifier(Colors.transparent);
   ValueNotifier<bool> selected = ValueNotifier(false);
   final double size;
   bool dot = false;
@@ -20,7 +20,7 @@ class _TileState extends State<Tile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.dot = true;
+        // widget.dot = true;
         widget.callback(widget.index);
         setState(() {
         });
@@ -31,6 +31,7 @@ class _TileState extends State<Tile> {
           first: widget.color,
           second: widget.selected,
           builder: (BuildContext context, Color val1, bool val2, Widget? child) {
+            if (val1 != Colors.transparent) widget.dot = true;
             return Neumorphic(
               style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,

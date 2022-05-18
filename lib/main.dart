@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFDCDCDC)),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFD3D8DB)), //0xFFDCDCDC
       home: Scaffold(
         body: Column(
           children: [
@@ -109,7 +109,7 @@ class _MyAppState extends State<MyApp> {
                 depth: 6,
                 lightSource: LightSource.topLeft,
                 intensity: .5,
-                color: const Color(0xFFDCDCDC),
+                color: const Color(0xFFD3D8DB),
                 border: const NeumorphicBorder(color: Colors.black12),
               ),
               child: ValueListenableBuilder<int>(
@@ -132,12 +132,12 @@ class _MyAppState extends State<MyApp> {
   Widget colorTile(int val) {
     if (val > -1) {
           return SlidePicker(
-            pickerColor: tiles[val].color.value,
+            pickerColor: tiles[val].color.value == Colors.transparent ? const Color(0xFFD3D8DB) : tiles[val].color.value,
             onColorChanged: (color) {
               tiles[val].color.value = color;
             },
             enableAlpha: false,
-            colorModel: ColorModel.hsl,
+            colorModel: ColorModel.hsv,
           );
     } else {
       return Center(
