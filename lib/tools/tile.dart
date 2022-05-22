@@ -1,5 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'tools/ValueListenableBuilder3.dart';
+import 'ValueListenableBuilder3.dart';
 class Tile extends StatefulWidget {
   ValueNotifier<Color> userColor = ValueNotifier(Colors.transparent);
   ValueNotifier<Color> autoColor = ValueNotifier(Colors.transparent);
@@ -36,7 +36,6 @@ class _TileState extends State<Tile> {
                 if (!widget.dot) widget.addToUserTiles(widget.index, true);
                 widget.dot = true;
               } else {
-                if (widget.dot) widget.addToUserTiles(widget.index, false);
                 widget.dot = false;
 
               }
