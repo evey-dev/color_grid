@@ -4,14 +4,13 @@ class Tile extends StatefulWidget {
   ValueNotifier<Color> userColor = ValueNotifier(Colors.transparent);
   ValueNotifier<Color> autoColor = ValueNotifier(Colors.transparent);
   ValueNotifier<bool> selected = ValueNotifier(false);
-  final double size;
   bool dot = false;
   int index;
   final void Function(int) setSelected;
   final void Function(int, bool) addToUserTiles;
 
 
-  Tile({required this.index, required this.size, required this.setSelected, required this.addToUserTiles, Key? key}) : super(key: key);
+  Tile({required this.index, required this.setSelected, required this.addToUserTiles, Key? key}) : super(key: key);
 
   @override
   _TileState createState() => _TileState();
@@ -53,14 +52,7 @@ class _TileState extends State<Tile> {
                 ),
                 padding: const EdgeInsets.all(2),
                 child: Container(
-                  height: widget.size,
-                  width: widget.size,
                   padding: const EdgeInsets.all(5),
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.all(Radius.circular(widget.size / 10)),
-                  //   color: widget.color,
-                  //   border: Border.all(color: Colors.black12),
-                  // ),
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Icon(

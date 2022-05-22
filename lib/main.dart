@@ -92,7 +92,6 @@ class _MyAppState extends State<MyApp> {
       for (var i = 0; i < gridHeight*gridWidth; i++)
         Tile(
           index: i,
-          size: 100,
           setSelected: setSelected,
           addToUserTiles: addToUserTiles,
         )
@@ -112,6 +111,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: Column(
           children: [
+            SizedBox(height: 10,),
             DragAndDropGridView(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: gridWidth,
@@ -140,6 +140,7 @@ class _MyAppState extends State<MyApp> {
                 tiles[oldIndex].index = oldIndex;
                 setSelected(newIndex);
                 setState(() {});
+                recalculate();
               },
             ),
             Neumorphic(
@@ -163,7 +164,17 @@ class _MyAppState extends State<MyApp> {
                   }
               ),
             ),
-            MaterialButton(
+            SizedBox(height: 10,),
+            NeumorphicButton(
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                depth: 6,
+                lightSource: LightSource.topLeft,
+                intensity: .5,
+                color: const Color(0xFFD3D8DB),
+                border: const NeumorphicBorder(color: Colors.black12),
+              ),
               child: Text('Calculate Grid'),
               onPressed: recalculate,
             ),
