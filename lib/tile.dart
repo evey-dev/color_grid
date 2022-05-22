@@ -1,7 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'tools/ValueListenableBuilder2.dart';
+import 'tools/ValueListenableBuilder3.dart';
 class Tile extends StatefulWidget {
-  ValueNotifier<Color> color = ValueNotifier(Colors.transparent);
+  ValueNotifier<Color> userColor = ValueNotifier(Colors.transparent);
+  ValueNotifier<Color> autoColor = ValueNotifier(Colors.transparent);
   ValueNotifier<bool> selected = ValueNotifier(false);
   final double size;
   bool dot = false;
@@ -20,19 +22,21 @@ class _TileState extends State<Tile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // widget.dot = true;
         widget.callback(widget.index);
-        setState(() {
-        });
+        setState(() {});
       },
       child: Container(
         padding: const EdgeInsets.all(5),
-        child: ValueListenableBuilder2<Color,bool>(
-          first: widget.color,
-          second: widget.selected,
-          builder: (BuildContext context, Color val1, bool val2, Widget? child) {
-            if (val1 != Colors.transparent) widget.dot = true;
-            else widget.dot = false;
+        child: ValueListenableBuilder3<Color,Color, bool>(
+          first: widget.userColor,
+          second: widget.autoColor,
+          third: widget.selected,
+            builder: (BuildContext context, Color color1, Color color2, bool value, Widget? child) {
+            if (color1 != Colors.transparent) {
+              widget.dot = true;
+            } else {
+              widget.dot = false;
+            }
             return Neumorphic(
               style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,
@@ -40,8 +44,8 @@ class _TileState extends State<Tile> {
                 depth: 6,
                 lightSource: LightSource.topLeft,
                 intensity: .5,
-                color: val1,
-                border: NeumorphicBorder(width:  val2 ? 2 : .5, color: Colors.black12),
+                color: color1 == Colors.transparent ? color2 == Colors.transparent ? const Color(0xFFD3D8DB) : color2 : color1,
+                border: NeumorphicBorder(width:  value ? 2 : .5, color: Colors.black12),
               ),
               padding: const EdgeInsets.all(2),
               child: Container(
@@ -58,7 +62,7 @@ class _TileState extends State<Tile> {
                   child: Icon(
                     Icons.circle,
                     size: 15,
-                    color: widget.dot ? val2 ? Colors.black54 : Colors.black12 : Colors.transparent,
+                    color: widget.dot ? value ? Colors.black54 : Colors.black12 : Colors.transparent,
                   ),
                 ),
               ),
