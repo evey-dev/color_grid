@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361215846448",
+    "project_id": "color-grid-bb79a",
+    "storage_bucket": "color-grid-bb79a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361215846448:android:ccb90691ad195ac6b1a5f5",
+        "android_client_info": {
+          "package_name": "com.eveylan.color_grid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361215846448-2br0a8aanisvg44e7i71oefdhjscrvd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfxh_F8ef4PRy6B7r_kI_yHnAu18eA6tU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361215846448-2br0a8aanisvg44e7i71oefdhjscrvd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
