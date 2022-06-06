@@ -1,6 +1,8 @@
 import 'package:color_grid/const/color.dart';
 import 'package:color_grid/const/theme.dart';
+import 'package:color_grid/page/color_grid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 
@@ -13,7 +15,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final FirebaseAuth instance = FirebaseAuth.instance;
-
+  
 
 
   @override
@@ -31,45 +33,36 @@ class _DashboardState extends State<Dashboard> {
         depth: 4,
         intensity: 1,
       ),
-      child: MaterialApp(
-        theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
-        //0xFFDCDCDC
-        home: Scaffold(
-          appBar: NeumorphicAppBar(
-            color: backgroundColor,
-            title: Text(username),
-            actions: <Widget>[
-              NeumorphicButton(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          // color: backgroundColor,
+          leadingWidth: 70,
+          leading: Padding(
+            padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+            child: Neumorphic(
+              style: containerStyle.copyWith(boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(50))),
+              child: Container(color: backgroundColor,child: Image.asset('assets/grid.png')),
+            ),
+          ),
+          title: NeumorphicText(username, style: textStyle.copyWith(), textStyle: NeumorphicTextStyle(fontSize: 25),),
+          backgroundColor: backgroundColor,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: NeumorphicButton(
                 minDistance: 1,
                 style: circleButtonStyle,
                 child: const Icon(Icons.add),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ColorGrid()));
+                },
               ),
-            ],
-          ),
-          body: ListView(
-            children: const [
-
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
-    );
-    // return MaterialApp(
-    //   theme: ThemeData(scaffoldBackgroundColor: background),
-    //   //0xFFDCDCDC
-    //   home: Scaffold(
-    //     appBar: NeumorphicAppBar(
-    //       title: Text("App bar"),
-    //       actions: <Widget>[
-    //         NeumorphicButton(
-    //           child: Icon(Icons.add),
-    //           onPressed: () {},
-    //         ),
-    //       ],
-    //     ),
-    //     body: Container()
-    //   ),
-    // );
+
+        ),
+      );
   }
 }

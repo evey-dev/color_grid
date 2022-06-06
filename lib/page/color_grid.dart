@@ -98,67 +98,75 @@ class _ColorGridState extends State<ColorGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: backgroundColor), //0xFFDCDCDC
-      home: Scaffold(
-        body: Column(
-          children: [
-            const SizedBox(height: 10,),
-            DragAndDropGridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: gridWidth,
-              ),
-              padding: const EdgeInsets.all(20),
-              itemBuilder: (context, index) => tilesWrapper[index],
-              itemCount: gridHeight*gridWidth,
-              isCustomFeedback: true,
-              feedback: (pos) {
-                return AbsorbPointer(
-                  absorbing: true,
-                  child: Transform.scale(scale: .5, child: tiles[pos]),
-                );
-              },
-              onWillAccept: (oldIndex, newIndex) {
-                return true;
-              },
-              onReorder: (oldIndex, newIndex) {
-                final temp1 = tiles[oldIndex];
-                tiles[oldIndex] = tiles[newIndex];
-                tiles[newIndex] = temp1;
-                final temp2 = tilesWrapper[oldIndex];
-                tilesWrapper[oldIndex] = tilesWrapper[newIndex];
-                tilesWrapper[newIndex] = temp2;
-                tiles[newIndex].index = newIndex;
-                tiles[oldIndex].index = oldIndex;
-                tiles[newIndex].selected.value = false;
-                tiles[oldIndex].selected.value = false;
-                setSelected(newIndex);
-                setState(() {});
-                recalculate();
-              },
+    return Scaffold(
+      appBar: AppBar(
+        // toolbarHeight: 80,
+        // color: backgroundColor,
+        leadingWidth: 70,
+        leading: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back), color: mainTextColor,),
+        title: NeumorphicText('Grid', style: textStyle.copyWith(),textStyle: NeumorphicTextStyle(fontSize: 25),),
+        backgroundColor: backgroundColor,
+        actions: <Widget>[
+          IconButton(onPressed: () {}, icon: const Icon(Icons.edit), color: mainTextColor,),
+        ],
+      ),
+      body: Column(
+        children: [
+          const SizedBox(height: 10,),
+          DragAndDropGridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridWidth,
             ),
-            Neumorphic(
-              style: containerStyle,
-              child: ValueListenableBuilder<int>(
-                  valueListenable: selected,
-                  builder: (BuildContext context, int val, Widget? child) {
-                    return SizedBox(
-                      height: 255,
-                      width: 280,
-                      child: colorTile(val),
-                    );
-                  }
-              ),
+            padding: const EdgeInsets.all(20),
+            itemBuilder: (context, index) => tilesWrapper[index],
+            itemCount: gridHeight*gridWidth,
+            isCustomFeedback: true,
+            feedback: (pos) {
+              return AbsorbPointer(
+                absorbing: true,
+                child: Transform.scale(scale: .5, child: tiles[pos]),
+              );
+            },
+            onWillAccept: (oldIndex, newIndex) {
+              return true;
+            },
+            onReorder: (oldIndex, newIndex) {
+              final temp1 = tiles[oldIndex];
+              tiles[oldIndex] = tiles[newIndex];
+              tiles[newIndex] = temp1;
+              final temp2 = tilesWrapper[oldIndex];
+              tilesWrapper[oldIndex] = tilesWrapper[newIndex];
+              tilesWrapper[newIndex] = temp2;
+              tiles[newIndex].index = newIndex;
+              tiles[oldIndex].index = oldIndex;
+              tiles[newIndex].selected.value = false;
+              tiles[oldIndex].selected.value = false;
+              setSelected(newIndex);
+              setState(() {});
+              recalculate();
+            },
+          ),
+          Neumorphic(
+            style: containerStyle,
+            child: ValueListenableBuilder<int>(
+                valueListenable: selected,
+                builder: (BuildContext context, int val, Widget? child) {
+                  return SizedBox(
+                    height: 255,
+                    width: 280,
+                    child: colorTile(val),
+                  );
+                }
             ),
-            const SizedBox(height: 10,),
-            NeumorphicButton(
-              style: buttonStyle,
-              minDistance: 1,
-              child: const Text('Calculate Grid'),
-              onPressed: recalculate,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10,),
+          NeumorphicButton(
+            style: buttonStyle,
+            minDistance: 1,
+            child: const Text('Calculate Grid'),
+            onPressed: recalculate,
+          ),
+        ],
       ),
     );
   }

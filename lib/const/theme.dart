@@ -49,7 +49,9 @@ NeumorphicStyle buttonStyle = NeumorphicStyle(
 NeumorphicStyle circleButtonStyle = NeumorphicStyle(
   shape: NeumorphicShape.flat,
   depth: 2,
-  boxShape: NeumorphicBoxShape.roundRect(
-      BorderRadius.circular(50)),
+  boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(50)),
   color: backgroundColor,
 );
+
+TextStyle defaultTextStyle = const TextStyle(color: mainTextColor);
+TextStyle linkTextStyle = const TextStyle(color: Colors.blue);

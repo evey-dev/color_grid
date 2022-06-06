@@ -1,4 +1,5 @@
 
+import 'package:color_grid/const/color.dart';
 import 'package:color_grid/page/dashboard.dart';
 import 'package:color_grid/page/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,16 +26,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [SystemUiOverlay.top]);
     if (instance.currentUser == null) {
-      return const MaterialApp(
+      return MaterialApp(
+        theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        home: const LoginPage(),
       );
     }
     else {
-      return const MaterialApp(
+      return MaterialApp(
+        theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
         debugShowCheckedModeBanner: false,
-        home: Dashboard(),
+        home: const Dashboard(),
       );
     }
   }
