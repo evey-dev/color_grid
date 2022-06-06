@@ -115,22 +115,22 @@ class _MainGridViewState extends State<MainGridView> {
 
   _moveUp() {
     _scrollController.animateTo(_scrollController.offset - _gridViewHeight,
-        curve: Curves.linear, duration: Duration(milliseconds: 500));
+        curve: Curves.linear, duration: const Duration(milliseconds: 500));
   }
 
   _moveDown() {
     _scrollController.animateTo(_scrollController.offset + _gridViewHeight,
-        curve: Curves.linear, duration: Duration(milliseconds: 500));
+        curve: Curves.linear, duration: const Duration(milliseconds: 500));
   }
 
   _moveLeft() {
     _scrollController.animateTo(_scrollController.offset - _gridViewWidth,
-        curve: Curves.linear, duration: Duration(milliseconds: 500));
+        curve: Curves.linear, duration: const Duration(milliseconds: 500));
   }
 
   _moveRight() {
     _scrollController.animateTo(_scrollController.offset + _gridViewWidth,
-        curve: Curves.linear, duration: Duration(milliseconds: 500));
+        curve: Curves.linear, duration: const Duration(milliseconds: 500));
   }
 
   Widget _headerChild(Widget header) {
@@ -242,7 +242,7 @@ class _MainGridViewState extends State<MainGridView> {
       children: [
         NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overscroll) {
-            overscroll.disallowGlow();
+            overscroll.disallowIndicator();
             return true;
           },
           child: GridView.builder(
@@ -282,7 +282,7 @@ class _MainGridViewState extends State<MainGridView> {
       children: [
         NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overscroll) {
-            overscroll.disallowGlow();
+            overscroll.disallowIndicator();
             return true;
           },
           child: GridView.builder(
@@ -330,7 +330,7 @@ class _MainGridViewState extends State<MainGridView> {
               : header == null ? _dragAndDropGrid() : _headerChild(header);
         }),
         !_isDragStart
-            ? SizedBox()
+            ? const SizedBox()
             : Align(
           alignment: widget.isVertical
               ? Alignment.topCenter
@@ -354,7 +354,7 @@ class _MainGridViewState extends State<MainGridView> {
           ),
         ),
         !_isDragStart
-            ? SizedBox()
+            ? const SizedBox()
             : Align(
           alignment: widget.isVertical
               ? Alignment.bottomCenter

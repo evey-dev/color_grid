@@ -1,10 +1,11 @@
 import 'dart:math';
+import 'package:color_grid/const/theme.dart';
 import 'package:color_grid/tools/tile.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:color_grid/tools/drag_and_drop_gridview/drag.dart';
 import 'package:color_grid/tools/drag_and_drop_gridview/devdrag.dart';
-
+import 'package:color_grid/const/color.dart';
 class ColorGrid extends StatefulWidget {
   const ColorGrid({Key? key}) : super(key: key);
 
@@ -98,11 +99,11 @@ class _ColorGridState extends State<ColorGrid> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFD3D8DB)), //0xFFDCDCDC
+      theme: ThemeData(scaffoldBackgroundColor: backgroundColor), //0xFFDCDCDC
       home: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             DragAndDropGridView(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: gridWidth,
@@ -137,15 +138,7 @@ class _ColorGridState extends State<ColorGrid> {
               },
             ),
             Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 6,
-                lightSource: LightSource.topLeft,
-                intensity: .5,
-                color: const Color(0xFFD3D8DB),
-                border: const NeumorphicBorder(color: Colors.black12),
-              ),
+              style: containerStyle,
               child: ValueListenableBuilder<int>(
                   valueListenable: selected,
                   builder: (BuildContext context, int val, Widget? child) {
@@ -157,18 +150,11 @@ class _ColorGridState extends State<ColorGrid> {
                   }
               ),
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             NeumorphicButton(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 6,
-                lightSource: LightSource.topLeft,
-                intensity: .5,
-                color: const Color(0xFFD3D8DB),
-                border: const NeumorphicBorder(color: Colors.black12),
-              ),
-              child: Text('Calculate Grid'),
+              style: buttonStyle,
+              minDistance: 1,
+              child: const Text('Calculate Grid'),
               onPressed: recalculate,
             ),
           ],
@@ -182,7 +168,7 @@ class _ColorGridState extends State<ColorGrid> {
       return Column(
         children: [
           SlidePicker(
-            pickerColor: tiles[val].userColor.value == Colors.transparent ? const Color(0xFFD3D8DB) : tiles[val].userColor.value,
+            pickerColor: tiles[val].userColor.value == Colors.transparent ? backgroundColor : tiles[val].userColor.value,
             onColorChanged: (color) {
               tiles[val].userColor.value = color;
             },
@@ -218,14 +204,7 @@ class _ColorGridState extends State<ColorGrid> {
           'Select a tile to change its color',
           textAlign: TextAlign.center,
           textStyle: NeumorphicTextStyle(fontSize: 30,),
-          style: NeumorphicStyle(
-            shape: NeumorphicShape.flat,
-            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-            depth: 2,
-            lightSource: LightSource.topLeft,
-            intensity: 1,
-            color: Colors.black54,
-          ),
+          style: textStyle,
         ),
       );
     }

@@ -1,5 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'ValueListenableBuilder3.dart';
+import 'value_listenable_builder_3.dart';
+import 'package:color_grid/const/color.dart';
+
 class Tile extends StatefulWidget {
   ValueNotifier<Color> userColor = ValueNotifier(Colors.transparent);
   ValueNotifier<Color> autoColor = ValueNotifier(Colors.transparent);
@@ -46,7 +48,7 @@ class _TileState extends State<Tile> {
                   depth: 6,
                   lightSource: LightSource.topLeft,
                   intensity: .5,
-                  color: color1 == Colors.transparent ? color2 == Colors.transparent ? const Color(0xFFD3D8DB) : color2 : color1,
+                  color: color1 == Colors.transparent ? color2 == Colors.transparent ? backgroundColor : color2 : color1,
                   border: NeumorphicBorder(width:  value ? 2 : .5, color: Colors.black12),
                 ),
                 padding: const EdgeInsets.all(2),
