@@ -28,6 +28,12 @@ NeumorphicStyle textFieldStyle = NeumorphicStyle(
   intensity: 1,
 );
 
+InputDecoration textFieldDecoration = const InputDecoration(
+  contentPadding: EdgeInsets.all(10),
+  border: InputBorder.none,
+  labelStyle: TextStyle(color: Colors.black),
+);
+
 NeumorphicStyle containerStyle = NeumorphicStyle(
   shape: NeumorphicShape.flat,
   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'drag.dart';
 
-typedef bool WillAcceptCallback(int data, int position);
-typedef Widget WidgetPositionBuilder(int index);
+typedef WillAcceptCallback = bool Function(int data, int position);
+typedef WidgetPositionBuilder = Widget Function(int index);
 
 class MainGridView extends StatefulWidget {
-  MainGridView(
-      {this.key,
+  const MainGridView(
+      {Key? key,
         this.header,
         this.headerItemCount,
         this.reverse = false,
@@ -38,9 +38,7 @@ class MainGridView extends StatefulWidget {
         this.isCustomChildWhenDragging = false,
         required this.gridDelegate,
         this.dragStartBehavior = DragStartBehavior.start,
-        this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual});
-
-  final Key? key;
+        this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual}) : super(key: key);
 
   final bool reverse;
   final Widget? header;
@@ -94,7 +92,7 @@ class MainGridView extends StatefulWidget {
 class _MainGridViewState extends State<MainGridView> {
   late final ScrollController _scrollController;
   ScrollController? _scrollController2;
-  var _gridViewHeight, _gridViewWidth;
+  late num _gridViewHeight, _gridViewWidth;
   var _isDragStart = false;
   bool _ownsScrollController = false;
 
@@ -203,8 +201,9 @@ class _MainGridViewState extends State<MainGridView> {
             widget.onReorderHeader!(
                 int.parse(data.toString().replaceAll("h", "")), pos);
           }
-        } else
+        } else {
           widget.onReorder(int.parse(data), pos);
+        }
       },
     );
   }

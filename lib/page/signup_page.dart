@@ -1,7 +1,10 @@
-import 'package:color_grid/page/dashboard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:color_grid/page/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:color_grid/const/theme.dart';
+
+import 'navigation.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -23,7 +26,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void initState() {
-
+    super.initState();
     _passwordVisible = false;
     instance
         .authStateChanges()
@@ -40,6 +43,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      resizeToAvoidBottomInset: false,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(top: 30.0),
         child: NeumorphicFloatingActionButton(
@@ -58,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
                 'Welcome!',
                 textAlign: TextAlign.center,
                 textStyle: NeumorphicTextStyle(
-                    fontSize: 70,
+                    fontSize: 56,
                     fontWeight: FontWeight.w900
                 ),
                 style: titleTextStyle,
@@ -69,13 +73,10 @@ class _SignupPageState extends State<SignupPage> {
               Neumorphic(
                 style: textFieldStyle,
                 child: TextField(
+                  cursorColor: Colors.black,
                   onChanged: (value) => _username = value,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10),
+                  decoration: textFieldDecoration.copyWith(
                     hintText: 'Username',
-                    fillColor: Colors.red,
-                    border: InputBorder.none,
-                    labelStyle: const TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -95,14 +96,11 @@ class _SignupPageState extends State<SignupPage> {
               Neumorphic(
                 style: textFieldStyle,
                 child: TextField(
+                  cursorColor: Colors.black,
                   onChanged: (value) => _emailAddress = value,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10),
+                  decoration: textFieldDecoration.copyWith(
                     hintText: 'Email',
-                    fillColor: Colors.red,
-                    border: InputBorder.none,
-                    labelStyle: TextStyle(color: Colors.black),
-                    // errorText: _emailError,
+
                   ),
                 ),
               ),
@@ -122,9 +120,10 @@ class _SignupPageState extends State<SignupPage> {
               Neumorphic(
                 style: textFieldStyle,
                 child: TextField(
-                  onChanged: (value) => _password = value,
+                    cursorColor: Colors.black,
+                    onChanged: (value) => _password = value,
                   obscureText: !_passwordVisible,
-                  decoration: InputDecoration(
+                  decoration: textFieldDecoration.copyWith(
                     suffixIcon: IconButton(
                       icon: Icon(
                         _passwordVisible
@@ -138,13 +137,9 @@ class _SignupPageState extends State<SignupPage> {
                         setState(() {});
                       },
                     ),
-                    contentPadding: const EdgeInsets.only(left: 10, top: 15),
                     hintText: 'Password',
-                    fillColor: Colors.red,
-                    border: InputBorder.none,
-                    labelStyle: const TextStyle(color: Colors.black),
-                    errorText: null,
-                  ),
+                    contentPadding: const EdgeInsets.only(left: 10, top: 15),
+                  )
                 ),
               ),
               Visibility(
@@ -198,7 +193,8 @@ class _SignupPageState extends State<SignupPage> {
                   }
                   await instance.currentUser?.updateDisplayName(_username);
                   print(instance.currentUser?.displayName);
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Dashboard()), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Navigation()), (route) => false);
+                  FirebaseFirestore.instance.collection('users').doc(instance.currentUser?.uid).set({'grids': [], 'published': []});
                 },
                 minDistance: 1,
                 style: circleButtonStyle,

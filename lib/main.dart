@@ -1,6 +1,6 @@
 
 import 'package:color_grid/const/color.dart';
-import 'package:color_grid/page/dashboard.dart';
+import 'package:color_grid/page/navigation.dart';
 import 'package:color_grid/page/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
         debugShowCheckedModeBanner: false,
-        home: const Dashboard(),
+        home: const Navigation(),
       );
     }
   }

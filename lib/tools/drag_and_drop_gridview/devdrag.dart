@@ -22,7 +22,7 @@ class DragAndDropGridView extends MainGridView {
   /// this [onReorder] have the old index and new index. Called when an acceptable piece of data was dropped over this grid child.
   /// [onWillAccept] this funciton allows you to validate if you want to accept the change in the order of the gridViewItems.
   ///  If you always want to accept the change simply return true
-  DragAndDropGridView({
+  const DragAndDropGridView({
     Key? key,
     bool reverse = false,
     Widget? header,
@@ -90,7 +90,7 @@ class DragAndDropGridView extends MainGridView {
   /// this [onReorder] have the old index and new index. Called when an acceptable piece of data was dropped over this grid child.
   /// [onWillAccept] this funciton allows you to validate if you want to accept the change in the order of the gridViewItems.
   ///  If you always want to accept the change simply return true
-  DragAndDropGridView.horizontal({
+  const DragAndDropGridView.horizontal({
     Key? key,
     bool reverse = false,
     ScrollController? controller,
@@ -164,7 +164,7 @@ class DragAndDropGridView extends MainGridView {
   /// this [onReorder] have the old index and new index. Called when an acceptable piece of data was dropped over this grid child.
   /// [onWillAccept] this funciton allows you to validate if you want to accept the change in the order of the gridViewItems.
   ///  If you always want to accept the change simply return true
-  DragAndDropGridView.stickyHeader({
+  const DragAndDropGridView.stickyHeader({
     Key? key,
     bool reverse = false,
     ScrollController? controller,
@@ -252,7 +252,7 @@ class DragAndDropGridView extends MainGridView {
   /// this [onReorder] have the old index and new index. Called when an acceptable piece of data was dropped over this grid child.
   /// [onWillAccept] this funciton allows you to validate if you want to accept the change in the order of the gridViewItems.
   ///  If you always want to accept the change simply return true
-  DragAndDropGridView.horizontalStickyHeader({
+  const DragAndDropGridView.horizontalStickyHeader({
     Key? key,
     bool reverse = false,
     ScrollController? controller,

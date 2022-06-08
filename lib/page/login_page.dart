@@ -1,5 +1,6 @@
 import 'package:color_grid/const/theme.dart';
-import 'package:color_grid/page/dashboard.dart';
+import 'package:color_grid/page/home.dart';
+import 'package:color_grid/page/navigation.dart';
 import 'package:color_grid/page/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -56,15 +57,10 @@ class _LoginPageState extends State<LoginPage> {
               Neumorphic(
                 style: textFieldStyle,
                 child: TextField(
+                  cursorColor: Colors.black,
                   onChanged: (value) => _emailAddress = value,
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.only(left: 10),
+                  decoration: textFieldDecoration.copyWith(
                     hintText: 'Email',
-                    fillColor: Colors.red,
-                    border: InputBorder.none,
-                    labelStyle: TextStyle(color: Colors.black),
-                    errorText: null,
-                    suffixIcon: null,
                   ),
                 ),
               ),
@@ -84,9 +80,10 @@ class _LoginPageState extends State<LoginPage> {
               Neumorphic(
                 style: textFieldStyle,
                 child: TextField(
+                  cursorColor: Colors.black,
                   onChanged: (value) => _password = value,
                   obscureText: !_passwordVisible,
-                  decoration: InputDecoration(
+                  decoration: textFieldDecoration.copyWith(
                     suffixIcon: IconButton(
                       icon: Icon(
                         _passwordVisible
@@ -100,12 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {});
                       },
                     ),
-                    contentPadding: const EdgeInsets.only(left: 10, top: 15),
                     hintText: 'Password',
-                    fillColor: Colors.red,
-                    border: InputBorder.none,
-                    labelStyle: const TextStyle(color: Colors.black),
-                    errorText: null,
+                    contentPadding: const EdgeInsets.only(left: 10, top: 15),
                   ),
                 ),
               ),
@@ -157,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                     print(e);
                     return;
                   }
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Dashboard()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Navigation()));
                 },
                 minDistance: 1,
                 style: buttonStyle,
