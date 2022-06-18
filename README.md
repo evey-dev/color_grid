@@ -1,16 +1,7 @@
-# color_grid
+# Color Grid
+An app where you can make color grids and share them with other users
 
-A color grid gradient maker.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Preview
+| Home | Grid Editing | Dashboard | Viewing Published Grid |
+| --- | --- | --- | --- |
+| <img src="https://media.discordapp.net/attachments/437041253390221313/987813554663092274/Screenshot_20220618-161714.jpg" alt="Home" width="250"/> | <img src="https://cdn.discordapp.com/attachments/437041253390221313/987813553660624917/Screenshot_20220618-161738.jpg?size=4096" alt="Grid Editing 1" width="250"/> | <img src="https://cdn.discordapp.com/attachments/437041253390221313/987813553408974868/Screenshot_20220618-161755.jpg?size=4096" alt="Dashboard" width="250"/> | <img src="https://cdn.discordapp.com/attachments/437041253390221313/987813553232834560/Screenshot_20220618-161802.jpg?size=4096" alt="Viewing Published Grid" width="250"/> |
